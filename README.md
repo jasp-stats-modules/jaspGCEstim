@@ -1,29 +1,9 @@
-# GCEstim for JASP: first development milestone
+# GCEstim for JASP � development version 0.0.3
 
-This separate JASP module starts with **W-GCE**. It calls `GCEstim::lmgce()`
-with user-entered signal support limits, optional fixed noise support, and no
-cross-validation or two-stage re-estimation. It displays the model summary,
-support limits, coefficients and asymptotic 95% confidence intervals, and signal
-support probabilities. TARW-GCE, TASW-GCE, plotting, bootstrap, and saved data
-columns are later milestones. This starter is not the jamovi module.
+This source module contains W-GCE, TARW-GCE, and TASW-GCE. Existing W-GCE and TARW-GCE R files, wrappers, QML forms, and help are preserved unchanged from the previous delivered version.
 
-## First local test on Windows
+TASW-GCE follows the supplied jamovi implementation: standardized-coefficient symmetric signal supports, three-sigma noise supports, cross-validation, selected-model tables and probabilities, confidence intervals, plots, and saved outputs. There are no ridge settings or ridge trace plot in TASW-GCE.
 
-1. Copy this folder to a separate project directory, for example
-   `C:\Users\jorge\OneDrive\Desktop\jaspGCEstim`.
-2. Make sure `GCEstim` and JASP's `jaspBase` package are available to the R
-   installation used for development. Run `R CMD INSTALL .` from a terminal
-   in this project folder. JASP provides its own R environment; ordinary
-   RStudio installation alone may not satisfy its module dependencies.
-3. In JASP, open **Preferences → Advanced**, enable **Developer mode**, select
-   the R library path where this package was installed, and enter
-   `jaspGCEstim` as the development module name. Refresh the module after
-   reinstalling it. See the [JASP module tutorial](https://github.com/jasp-stats/jasp-desktop/blob/development/Docs/development/jasp-modules-tutorial.md)
-   for the version-specific developer workflow.
-4. Select a numeric outcome and at least one covariate or factor. Start with
-   `GCEstim::dataThesis` (`y` and `X001`–`X004`) if it is available in your JASP
-   data set.
+Use the folder with your existing JASP module development workflow. The package name remains jaspGCEstim. Install/reload the combined module to add TASW-GCE alongside the existing analyses. The ZIP contains source files, not a compiled JASP binary. Copying only taswgce.R will not register the new analysis: its wrapper, form, NAMESPACE exports, and Description.qml registration are also required.
 
-The current folder was checked structurally, but could not be run inside JASP
-in this environment. Start by confirming that the menu and W-GCE table appear,
-then compare its estimates with `GCEstim::lmgce()` on the same complete cases.
+Set variables and options before selecting Fit and update model. Clear that checkbox before changing several costly estimation settings. See inst/help/taswgce.md for details and VALIDATION.md for the limits of testing.

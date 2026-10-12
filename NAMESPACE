@@ -1,3 +1,8 @@
 import(jaspBase)
 export(wgce)
 export(wgceInternal)
+export(tarwgce)
+export(tarwgceInternal)
+
+export(taswgce)
+export(taswgceInternal)

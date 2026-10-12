@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-<defs>
-<linearGradient id="bg" x1="0%" y1="100%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#2f6db5"/>
-<stop offset="100%" stop-color="#f0a020"/>
-</linearGradient>
-</defs>
-<polygon points="64,6 114,35 114,93 64,122 14,93 14,35"
- fill="url(#bg)" stroke="#f0a020" stroke-width="4"/>
-<line x1="30" y1="90" x2="96" y2="90" stroke="white" stroke-width="4"/>
-<line x1="30" y1="90" x2="30" y2="34" stroke="white" stroke-width="4"/>
-<line x1="38" y1="78" x2="84" y2="42" stroke="white" stroke-width="4"/>
-<circle cx="44" cy="72" r="3.5" fill="white"/>
-<circle cx="54" cy="63" r="3.5" fill="white"/>
-<circle cx="61" cy="72" r="3.5" fill="white"/>
-<circle cx="70" cy="58" r="3.5" fill="white"/>
-<circle cx="78" cy="50" r="3.5" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <text x="5" y="19" fill="#285A73" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="bold" font-style="italic">H(p,q)</text>
+
+  <path d="M9 29V54H56" fill="none" stroke="#56616B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <path d="M14 48L53 27" fill="none" stroke="#E87924" stroke-width="3.5" stroke-linecap="round"></path>
+
+  <g fill="#287FA3">
+    <circle cx="16" cy="46" r="2.8"></circle>
+    <circle cx="23" cy="39" r="2.8"></circle>
+    <circle cx="30" cy="42" r="2.8"></circle>
+    <circle cx="38" cy="32" r="2.8"></circle>
+    <circle cx="49" cy="31" r="2.8"></circle>
+  </g>
 </svg>
