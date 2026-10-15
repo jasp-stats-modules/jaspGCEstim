@@ -4,3 +4,4 @@
 build/
 *.Rcheck/
 *.tar.gz
+module-bundles/
