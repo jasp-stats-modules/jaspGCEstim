@@ -4,7 +4,7 @@ import JASP.Module
 Description {
     title:       "GCEstim"
     description: "Entropy-based linear regression using GCEstim."
-    version:     "0.0.3"
+    version:     "0.0.4"
     author:      "Jorge Cabral"
     maintainer:  "Jorge Cabral <jorgecabral@ua.pt>"
     website:     "https://github.com/jorgevazcabral/GCEstim"

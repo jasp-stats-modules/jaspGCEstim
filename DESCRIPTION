@@ -1,7 +1,7 @@
 Package: jaspGCEstim
 Type: Package
 Title: Entropy-Based Linear Regression for JASP
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: person("Jorge", "Cabral", email = "jorgecabral@ua.pt", role = c("aut", "cre"))
 Description: A JASP interface for weighted generalized cross-entropy linear
     regression using the GCEstim R package. This development version implements

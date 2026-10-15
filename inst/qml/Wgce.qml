@@ -25,6 +25,7 @@ Form {
     }
 
     CheckBox { name: "intercept"; label: qsTr("Intercept"); checked: true }
+    CheckBox { name: "run"; label: qsTr("Fit and update model"); checked: false }
 
     Section {
         title: qsTr("Signal Support")
@@ -46,7 +47,7 @@ Form {
         TextField {
             name: "signalPriorWeights"
             label: qsTr("Signal prior probabilities (comma separated)")
-            defaultValue: "1/3, 1/3, 1/3"
+            defaultValue: "1/4, 1/2, 1/4"
             fieldWidth: 200
             enabled: !uniformSignalPrior.checked
         }
@@ -98,7 +99,7 @@ Form {
     Section {
         title: qsTr("Confidence Intervals")
         columns: 1
-        DoubleField { name: "confLevel"; label: qsTr("Confidence level"); defaultValue: 0.95; min: 0.01; max: 0.99 }
+        DoubleField { name: "confLevel"; label: qsTr("Confidence level"); defaultValue: 0.95; min: 0.50; max: 0.99 }
         CheckBox { id: bootstrap; name: "bootstrap"; label: qsTr("Bootstrap"); checked: false }
         IntegerField { name: "bootB"; label: qsTr("Number of bootstrap samples"); defaultValue: 100; min: 10; enabled: bootstrap.checked }
         DropDown {

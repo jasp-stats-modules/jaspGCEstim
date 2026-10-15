@@ -1,6 +1,7 @@
 wgce <- function(
     data = NULL,
-    version = "0.0.1",
+    version = "0.0.4",
+    run = FALSE,
     dependent = list(types = list(), value = list()),
     covariates = list(types = list(), value = list()),
     factors = list(types = list(), value = list()),
@@ -9,7 +10,7 @@ wgce <- function(
     upperLimits = "10",
     M = 3,
     uniformSignalPrior = TRUE,
-    signalPriorWeights = "1/3, 1/3, 1/3",
+    signalPriorWeights = "1/4, 1/2, 1/4",
     J = 3,
     uniformNoisePrior = TRUE,
     noisePriorWeights = "1/3, 1/3, 1/3",

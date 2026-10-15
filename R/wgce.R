@@ -162,6 +162,15 @@ wgceInternal <- function(jaspResults, dataset, options) {
                                   "Coefficients",
                                   coefficientColumns)
   
+  for (table in list(summaryTable, supportsTable, coefficientsTable))
+    table$dependOn("run")
+  if (!isTRUE(options$run)) {
+    summaryTable$setData(data.frame(
+      measure = "Status",
+      value = "Select variables and support limits, then select Fit and update model."))
+    return(invisible(NULL))
+  }
+
   dependent <- as.character(unlist(options$dependent, use.names = FALSE))
   covariates <- as.character(unlist(options$covariates, use.names = FALSE))
   factors <- as.character(unlist(options$factors, use.names = FALSE))
@@ -225,8 +234,8 @@ wgceInternal <- function(jaspResults, dataset, options) {
     confidenceLevel <- as.numeric(options$confLevel)
     if (length(confidenceLevel) != 1L ||
         !is.finite(confidenceLevel) ||
-        confidenceLevel <= 0 || confidenceLevel >= 1)
-      stop("Confidence level must be between 0 and 1.")
+        confidenceLevel < 0.50 || confidenceLevel > 0.99)
+      stop("Confidence level must be between 0.50 and 0.99.")
     bootB <- if (isTRUE(options$bootstrap))
       as.integer(options$bootB)
     else
@@ -271,6 +280,13 @@ wgceInternal <- function(jaspResults, dataset, options) {
         !is.finite(weight) || weight <= 0 || weight >= 1)
       stop("Noise weight must be strictly between zero and one.")
     
+    RNGkind(
+      kind = "Mersenne-Twister",
+      normal.kind = "Inversion",
+      sample.kind = "Rejection"
+    )
+    base::set.seed(as.integer(options$seed))
+    
     fit <- GCEstim::lmgce(
       formula = formula,
       data = data,
@@ -288,9 +304,9 @@ wgceInternal <- function(jaspResults, dataset, options) {
       boot.B = bootB,
       boot.method = as.character(options$bootMethod),
       seed = as.integer(options$seed),
-      OLS = isTRUE(options$OLS)
+      OLS = TRUE
     )
-    ci <- stats::confint(
+    ci <- GCEstim:::confint.lmgce(
       fit,
       level = confidenceLevel,
       method = if (isTRUE(options$bootstrap))
@@ -525,6 +541,9 @@ wgceInternal <- function(jaspResults, dataset, options) {
       }
     }
     
+    for (key in c("signalProbabilities", "estimatesPlot", "savedColumns")) {
+      if (!is.null(jaspResults[[key]])) jaspResults[[key]]$dependOn("run")
+    }
     return(invisible(NULL))
   }, error = function(e) {
     summaryTable$setError(conditionMessage(e))

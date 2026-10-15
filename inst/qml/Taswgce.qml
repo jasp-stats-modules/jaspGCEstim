@@ -4,7 +4,6 @@ import JASP.Controls
 import JASP.Widgets
 
 Form {
-    CheckBox { name: "run"; label: qsTr("Fit and update model"); checked: false }
     VariablesForm {
         AvailableVariablesList { name: "availableVariables" }
         AssignedVariablesList {
@@ -26,15 +25,16 @@ Form {
     }
 
     CheckBox { name: "intercept"; label: qsTr("Intercept"); checked: true }
+    CheckBox { name: "run"; label: qsTr("Fit and update model"); checked: false }
     Section {
         title: qsTr("Signal Support")
         Text { text: qsTr("Symmetric supports based on standardized coefficients"); wrapMode: Text.WordWrap }
         columns: 1
         TextField { name: "M"; label: qsTr("Signal support points"); defaultValue: "3, 5, 7"; fieldWidth: 240 }
         IntegerField { id: supportSignalVectorN; name: "supportSignalVectorN"; label: qsTr("Number of signal support spaces"); defaultValue: 5; min: 1 }
-        DoubleField { name: "supportSignal"; label: qsTr("Signal support value"); defaultValue: 1; min: 0.000001; enabled: supportSignalVectorN.value === 1 }
-        DoubleField { name: "supportSignalVectorMin"; label: qsTr("Minimum signal support range"); defaultValue: 0.3; min: 0.01; enabled: supportSignalVectorN.value > 1 }
-        DoubleField { name: "supportSignalVectorMax"; label: qsTr("Maximum signal support range"); defaultValue: 20; min: 0.01; enabled: supportSignalVectorN.value > 1 }
+        DoubleField { name: "supportSignal"; label: qsTr("Flexibility parameter (single support space)"); defaultValue: 1; min: 0.000001; enabled: supportSignalVectorN.value === 1 }
+        DoubleField { name: "supportSignalVectorMin"; label: qsTr("Minimum flexibility parameter"); defaultValue: 0.3; min: 0.01; enabled: supportSignalVectorN.value > 1 }
+        DoubleField { name: "supportSignalVectorMax"; label: qsTr("Maximum flexibility parameter"); defaultValue: 20; min: 0.01; enabled: supportSignalVectorN.value > 1 }
     }
     Section {
         title: qsTr("Noise Support")
@@ -44,7 +44,7 @@ Form {
         TextField { name: "weight"; label: qsTr("Noise weight values"); defaultValue: "0.3, 0.5, 0.7"; fieldWidth: 240 }
     }
     Section {
-        title: qsTr("Cross-validation")
+        title: qsTr("Cross-Validation")
         columns: 1
         IntegerField { name: "cvNfolds"; label: qsTr("Number of CV folds"); defaultValue: 5; min: 2 }
         DropDown { name: "errorMeasure"; label: qsTr("Error measure"); values: [{ label: qsTr("RMSE"), value: "RMSE" }, { label: qsTr("MSE"), value: "MSE" }, { label: qsTr("MAE"), value: "MAE" }, { label: qsTr("MAPE"), value: "MAPE" }, { label: qsTr("sMAPE"), value: "sMAPE" }, { label: qsTr("MASE"), value: "MASE" }]; startValue: "RMSE" }

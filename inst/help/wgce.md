@@ -48,3 +48,9 @@ of missing model variables have missing saved values.
 ## Reference
 
 Cabral, J. (2026). *GCEstim: Regression Coefficients Estimation Using the Generalized Cross Entropy*. R package. https://CRAN.R-project.org/package=GCEstim
+
+## Fit control and custom prior defaults
+
+Select **Fit and update model** after choosing variables and settings. The control is off initially. Clear it before making several expensive changes.
+
+The confidence-level range is 0.50 to 0.99. Uniform signal prior remains the default. When uniform signal prior is disabled, the initial three-point custom prior text is 1/4, 1/2, 1/4; supply the appropriate number of probabilities if the point count changes. The existing plots are retained.

@@ -1,4 +1,4 @@
-taswgce <- function(data = NULL, version = "0.0.3",
+taswgce <- function(data = NULL, version = "0.0.4",
     run = FALSE,
     dependent = list(types = list(), value = list()),
     covariates = list(types = list(), value = list()),

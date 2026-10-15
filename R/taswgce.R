@@ -73,14 +73,14 @@ taswgceInternal <- function(jaspResults, dataset, options) {
     .taswgceScalar(options$cvNfolds, "CV folds", 2, nrow(data), TRUE)
     .taswgceScalar(options$cvTableRows, "CV rows", 1, integer = TRUE)
     .taswgceScalar(options$supportSignalVectorN, "Support spaces", 1, integer = TRUE)
-    .taswgceScalar(options$supportSignalVectorMin, "Minimum support range", 0.01)
-    .taswgceScalar(options$supportSignalVectorMax, "Maximum support range", 0.01)
-    .taswgceScalar(options$supportSignal, "Signal support", 0.000001)
+    .taswgceScalar(options$supportSignalVectorMin, "Minimum flexibility parameter", 0.01)
+    .taswgceScalar(options$supportSignalVectorMax, "Maximum flexibility parameter", 0.01)
+    .taswgceScalar(options$supportSignal, "Flexibility parameter", 0.000001)
     .taswgceScalar(options$twostepsN, "Re-estimations", 0, integer = TRUE)
     .taswgceScalar(options$seed, "Seed", 1, .Machine$integer.max, TRUE)
     .taswgceScalar(options$bootConfLevel, "Confidence level", 0.5, 0.99)
     if (isTRUE(options$bootstrap)) .taswgceScalar(options$bootB, "Bootstrap samples", 10, integer = TRUE)
-    if (options$supportSignalVectorMin >= options$supportSignalVectorMax) stop("Minimum support range must be smaller than maximum.")
+    if (options$supportSignalVectorMin >= options$supportSignalVectorMax) stop("The minimum flexibility parameter must be smaller than the maximum.")
     choices <- list(errorMeasure = c("RMSE", "MSE", "MAE", "MAPE", "sMAPE", "MASE"),
       errorMeasureWhich = c("1se", "min"), bootMethod = c("residuals", "cases", "wild"),
       bootCIMethod = c("percentile", "basic"),
@@ -124,7 +124,7 @@ taswgceInternal <- function(jaspResults, dataset, options) {
         twosteps.n = options$twostepsN, method = options$method, caseGLM = "D",
         boot.B = if (isTRUE(options$bootstrap)) options$bootB else 0L,
         boot.method = if (isTRUE(options$bootstrap)) options$bootMethod else "residuals",
-        OLS = isTRUE(options$OLS), seed = as.integer(options$seed)),
+        OLS = TRUE, seed = as.integer(options$seed)),
         warning = function(w) { warnings <<- c(warnings, conditionMessage(w)); invokeRestart("muffleWarning") })
       if (is.null(fit$best)) stop("Cross-validation did not return a selected model.")
       ci <- stats::confint(fit$best, level = options$bootConfLevel,
@@ -188,8 +188,8 @@ taswgceInternal <- function(jaspResults, dataset, options) {
     tab("coefficients", "Coefficients", specs)$setData(values)
     cv <- as.data.frame(fit$results)
     cv <- head(cv[order(cv$error.measure.cv.mean, na.last = TRUE), , drop = FALSE], options$cvTableRows)
-    tab("cvResults", "Cross-validation Results", list(col("M", "Signal points"), col("J", "Noise points"),
-      col("weight", "Weight"), col("error", "Error"), col("mean", "CV error"),
+    tab("cvResults", "Cross-Validation Results", list(col("M", "Signal points"), col("J", "Noise points"),
+      col("weight", "Weight"), col("error", paste("In-sample", options$errorMeasure)), col("mean", paste("CV", options$errorMeasure)),
       col("converged", "Converged", "string"), col("time", "Time (s)")))$setData(data.frame(
         M = cv$support.signal.points, J = cv$support.noise.points, weight = cv$weight,
         error = cv$error.measure, mean = cv$error.measure.cv.mean,
