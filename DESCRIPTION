@@ -12,5 +12,8 @@ Encoding: UTF-8
 Imports:
     jaspBase,
     GCEstim (>= 1.1.0),
+    graphics,
     stats
+Remotes:
+    jasp-stats/jaspBase
 RoxygenNote: 7.3.3
