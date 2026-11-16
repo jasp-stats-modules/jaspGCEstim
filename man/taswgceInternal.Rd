@@ -2,10 +2,20 @@
 % Please edit documentation in R/taswgce.R
 \name{taswgceInternal}
 \alias{taswgceInternal}
-\title{TASW-GCE standardized-support cross-validated linear model}
+\title{TASW-GCE Linear Model JASP Analysis}
 \usage{
 taswgceInternal(jaspResults, dataset, options)
 }
+\arguments{
+\item{jaspResults}{JASP results container.}
+
+\item{dataset}{JASP data frame.}
+
+\item{options}{Analysis options supplied by the corresponding JASP form.}
+}
+\value{
+Updates the JASP results container and returns invisibly.
+}
 \description{
-TASW-GCE standardized-support cross-validated linear model
+Fit adaptive W-GCE regression with standardized supports and cross-validation through the JASP interface.
 }

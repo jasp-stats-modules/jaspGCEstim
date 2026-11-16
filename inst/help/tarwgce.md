@@ -14,6 +14,9 @@ Bootstrap confidence intervals hide asymptotic standard deviation, z, and p colu
 
 Saved fitted values, residuals, and selected-model noise probabilities use TARWGCE-prefixed names. Excluded cases receive missing values in the original row positions.
 
-Display settings reuse the cached fit when model settings and data are unchanged. Plot failures are reported on the affected plot. This development version requires validation in JASP against the working jamovi implementation.
+Display settings reuse the cached fit when model settings and data are unchanged. Plot failures are reported on the affected plot. For comparisons across software, use matching data, options, GCEstim versions and RNG settings.
 
 CV table headings name the selected error measure, for example In-sample RMSE and CV RMSE. Existing JASP plots and cache behavior are retained.
+
+
+True coefficients are checked only for selected, available precision-error plots. Invalid optional input is reported in Model Summary, and those plots are skipped while model tables, other plots, and saved outputs remain available. Supply one value per model-matrix coefficient, including the intercept when selected and expanded factor terms.

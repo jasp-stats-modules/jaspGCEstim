@@ -1,9 +1,32 @@
-# GCEstim for JASP ? development version 0.0.4
+# GCEstim for JASP
 
-The module provides W-GCE, TARW-GCE, and TASW-GCE linear regression using GCEstim. Version 0.0.4 adapts the current jamovi module's non-plot changes while retaining the existing JASP plot implementation and cache logic.
+GCEstim provides entropy-based linear regression and ridge regression diagnostics in JASP.
 
-Use this source folder with your existing JASP development-module workflow. The package name remains jaspGCEstim. Reload/install the complete updated module so that its R code, wrappers, and forms are updated together. This ZIP contains source, not a compiled JASP binary.
+## Available analyses
 
-Select variables, set options, and select **Fit and update model**. W-GCE now has this control too. Clear it before making several expensive estimation changes.
+- **W-GCE**: weighted generalized cross-entropy linear regression.
+- **TARW-GCE**: adaptive W-GCE regression with ridge-based support selection.
+- **TASW-GCE**: adaptive W-GCE regression with standardized supports.
+- **Ridge Trace**: explore how ridge regression coefficients and prediction errors change with the penalty parameter.
 
-TARW-GCE and TASW-GCE use **flexibility parameter** labels for the single-space value and search limits. Their CV tables identify the selected prediction-error measure in the column headings. W-GCE's custom signal-prior default is 1/4, 1/2, 1/4; the default fit still uses a uniform signal prior.
+## Getting started
+
+1. Open your data in JASP and choose an analysis from the **GCEstim** menu.
+2. Assign a dependent variable and covariates or factors, then choose the model options.
+3. Select **Fit and update model** to view the results.
+
+The regression analyses provide coefficient estimates, confidence intervals, support probabilities and diagnostic plots. Fitted values, residuals and noise probabilities can be saved to the dataset.
+
+True coefficients are optional and are needed only for precision-error plots.
+
+## Ridge Trace
+
+Use an automatic or custom lambda grid and select a penalty using minimum prediction error, the 1-SE rule or a manual grid position. Tables and plots show coefficient paths, prediction errors, coefficient ranges and stability across cross-validation folds.
+
+Coefficient ranges describe variation over the lambda grid; they are not confidence intervals. See the analysis help for the available options and limitations of standardized cross-validation.
+
+## Help
+
+Open the help for each analysis in JASP for explanations of its options, results and limitations.
+
+GCEstim is developed by Jorge Cabral and uses the [GCEstim R package](https://CRAN.R-project.org/package=GCEstim).

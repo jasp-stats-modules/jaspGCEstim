@@ -2,7 +2,7 @@
 % Please edit documentation in R/wgce.R
 \name{wgceInternal}
 \alias{wgceInternal}
-\title{W-GCE linear model}
+\title{W-GCE Linear Model JASP Analysis}
 \usage{
 wgceInternal(jaspResults, dataset, options)
 }
@@ -11,8 +11,11 @@ wgceInternal(jaspResults, dataset, options)
 
 \item{dataset}{JASP data frame.}
 
-\item{options}{Options supplied by Wgce.qml.}
+\item{options}{Analysis options supplied by the corresponding JASP form.}
+}
+\value{
+Updates the JASP results container and returns invisibly.
 }
 \description{
-W-GCE linear model
+Fit weighted generalized cross-entropy linear regression through the JASP interface.
 }

@@ -4,7 +4,7 @@ import JASP.Module
 Description {
     title:       "GCEstim"
     description: "Entropy-based linear regression using GCEstim."
-    version:     "0.0.4"
+    version:     "1.0.0"
     author:      "Jorge Cabral"
     maintainer:  "Jorge Cabral <jorgecabral@ua.pt>"
     website:     "https://github.com/jorgevazcabral/GCEstim"
@@ -29,5 +29,11 @@ Description {
         menu: "TASW-GCE"
         qml: "Taswgce.qml"
         func: "taswgce"
+    }
+    Analysis {
+        title: "Ridge Trace"
+        menu: "Ridge Trace"
+        qml: "RidgeTrace.qml"
+        func: "ridgeTrace"
     }
 }
