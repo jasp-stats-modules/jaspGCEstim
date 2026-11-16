@@ -2,10 +2,20 @@
 % Please edit documentation in R/tarwgce.R
 \name{tarwgceInternal}
 \alias{tarwgceInternal}
-\title{TARW-GCE ridge-supported cross-validated linear model}
+\title{TARW-GCE Linear Model JASP Analysis}
 \usage{
 tarwgceInternal(jaspResults, dataset, options)
 }
+\arguments{
+\item{jaspResults}{JASP results container.}
+
+\item{dataset}{JASP data frame.}
+
+\item{options}{Analysis options supplied by the corresponding JASP form.}
+}
+\value{
+Updates the JASP results container and returns invisibly.
+}
 \description{
-TARW-GCE ridge-supported cross-validated linear model
+Fit adaptive W-GCE regression with ridge-derived supports and cross-validation through the JASP interface.
 }

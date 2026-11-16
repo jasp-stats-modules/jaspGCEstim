@@ -59,10 +59,14 @@
   table
 }
 
-#' W-GCE linear model
+#' W-GCE Linear Model JASP Analysis
+#'
+#' Fit weighted generalized cross-entropy linear regression through the JASP interface.
+#'
 #' @param jaspResults JASP results container.
 #' @param dataset JASP data frame.
-#' @param options Options supplied by Wgce.qml.
+#' @param options Analysis options supplied by the corresponding JASP form.
+#' @return Updates the JASP results container and returns invisibly.
 #' @export
 wgceInternal <- function(jaspResults, dataset, options) {
   summaryTable <- .wgceTable(jaspResults,
@@ -142,7 +146,7 @@ wgceInternal <- function(jaspResults, dataset, options) {
     coefficientColumns <- c(coefficientColumns, list(
       list(
         name = "sd",
-        title = "Std. Deviation",
+        title = "SE",
         type = "number"
       ),
       list(
@@ -165,9 +169,9 @@ wgceInternal <- function(jaspResults, dataset, options) {
   for (table in list(summaryTable, supportsTable, coefficientsTable))
     table$dependOn("run")
   if (!isTRUE(options$run)) {
-    summaryTable$setData(data.frame(
-      measure = "Status",
-      value = "Select variables and support limits, then select Fit and update model."))
+    summaryTable$setData(
+      data.frame(measure = "Status", value = "Select variables and support limits, then select Fit and update model.")
+    )
     return(invisible(NULL))
   }
 
@@ -280,11 +284,9 @@ wgceInternal <- function(jaspResults, dataset, options) {
         !is.finite(weight) || weight <= 0 || weight >= 1)
       stop("Noise weight must be strictly between zero and one.")
     
-    RNGkind(
-      kind = "Mersenne-Twister",
-      normal.kind = "Inversion",
-      sample.kind = "Rejection"
-    )
+    RNGkind(kind = "Mersenne-Twister",
+            normal.kind = "Inversion",
+            sample.kind = "Rejection")
     base::set.seed(as.integer(options$seed))
     
     fit <- GCEstim::lmgce(
@@ -315,6 +317,9 @@ wgceInternal <- function(jaspResults, dataset, options) {
         "z"
     )
     coefs <- summary(fit)$coefficients
+    tableLabels <- .gceCoefficientLabels(unique(c(
+      terms, rownames(coefs), rownames(fit$p)
+    )))
     
     intervalText <- function(bounds) {
       paste0("[",
@@ -378,14 +383,14 @@ wgceInternal <- function(jaspResults, dataset, options) {
     ))
     
     supportsTable$setData(data.frame(
-      term = terms,
+      term = unname(tableLabels[terms]),
       lower = lower,
       upper = upper
     ))
     
     coefTerms <- rownames(coefs)
     coefficientData <- data.frame(
-      term = coefTerms,
+      term = unname(tableLabels[coefTerms]),
       estimate = as.numeric(coefs[, "Estimate"]),
       lower = as.numeric(ci[coefTerms, 1L]),
       upper = as.numeric(ci[coefTerms, 2L]),
@@ -474,11 +479,13 @@ wgceInternal <- function(jaspResults, dataset, options) {
       ), lapply(seq_len(M), function(i)
         list(
           name = paste0("p", i),
-          title = paste0("p_", i),
+          title = paste0("p (point ", i, ")"),
           type = "number"
         )))
     )
-    probabilityData <- data.frame(term = terms, pMatrix, check.names = FALSE)
+    probabilityData <- data.frame(term = unname(tableLabels[terms]),
+                                  pMatrix,
+                                  check.names = FALSE)
     names(probabilityData) <- c("term", paste0("p", seq_len(M)))
     probabilityTable$setData(probabilityData)
     
@@ -542,7 +549,8 @@ wgceInternal <- function(jaspResults, dataset, options) {
     }
     
     for (key in c("signalProbabilities", "estimatesPlot", "savedColumns")) {
-      if (!is.null(jaspResults[[key]])) jaspResults[[key]]$dependOn("run")
+      if (!is.null(jaspResults[[key]]))
+        jaspResults[[key]]$dependOn("run")
     }
     return(invisible(NULL))
   }, error = function(e) {

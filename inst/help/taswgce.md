@@ -17,3 +17,6 @@ Support-search plots require multiple support spaces. Re-estimation plots requir
 Saved columns use TASWGCE-prefixed names. Fitted values, residuals, and noise probabilities from the selected model are aligned to the original rows; excluded cases receive missing values. Display-only changes reuse the fitted model when data and estimation settings are unchanged.
 
 CV table headings name the selected error measure, for example In-sample RMSE and CV RMSE. Existing JASP plots and cache behavior are retained.
+
+
+True coefficients are checked only for selected, available precision-error plots. Invalid optional input is reported in Model Summary, and those plots are skipped while model tables, other plots, and saved outputs remain available. Supply one value per model-matrix coefficient, including the intercept when selected and expanded factor terms.

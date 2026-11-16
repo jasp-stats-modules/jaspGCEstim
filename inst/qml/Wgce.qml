@@ -128,7 +128,7 @@ Form {
             label: qsTr("Seed")
             defaultValue: 230676
             min: 1
-            fieldWidth: 90
+            fieldWidth: 120
         }
     }
 
