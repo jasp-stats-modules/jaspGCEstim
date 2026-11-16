@@ -2,8 +2,9 @@ import QtQuick
 import JASP.Module
 
 Description {
-    title:       "GCEstim"
-    description: "Entropy-based linear regression using GCEstim."
+    name:        "jaspGCEstim"
+    title:       qsTr("GCEstim")
+    description: qsTr("Entropy-based linear regression using GCEstim.")
     version:     "1.0.0"
     author:      "Jorge Cabral"
     maintainer:  "Jorge Cabral <jorgecabral@ua.pt>"
